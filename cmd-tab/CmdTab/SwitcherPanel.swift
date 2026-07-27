@@ -34,8 +34,8 @@ final class SwitcherPanel {
 
         stack.orientation = .horizontal
         stack.alignment = .centerY
-        stack.spacing = 4
-        stack.edgeInsets = NSEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        stack.spacing = 0
+        stack.edgeInsets = NSEdgeInsets(top: 1.38, left: 20.41, bottom: 1.38, right: 20.41)
         effect.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -73,7 +73,7 @@ final class SwitcherPanel {
 
         let screen = NSScreen.main ?? NSScreen.screens.first
         let availableWidth = (screen?.visibleFrame.width ?? 1200) * 0.85
-        let maxCount = max(2, Int((availableWidth - 16) / 126))
+        let maxCount = max(2, Int((availableWidth - 40.82) / 142.6))
         let count = min(maxCount, applications.count)
         var start = max(0, selectedIndex - count / 2)
         start = min(start, applications.count - count)
@@ -88,8 +88,8 @@ final class SwitcherPanel {
             stack.addArrangedSubview(item)
         }
 
-        let width = CGFloat(count * 122 + max(0, count - 1) * 4 + 16)
-        let size = NSSize(width: width, height: 150)
+        let width = CGFloat(count) * 142.6 + 40.82
+        let size = NSSize(width: width, height: 183.43)
         panel.setContentSize(size)
         if let screen {
             panel.setFrameOrigin(NSPoint(
@@ -115,7 +115,7 @@ private final class SwitcherItemView: NSView {
         wantsLayer = true
 
         background.wantsLayer = true
-        background.layer?.cornerRadius = 28
+        background.layer?.cornerRadius = 32
         addSubview(background)
         background.translatesAutoresizingMaskIntoConstraints = false
 
@@ -133,19 +133,19 @@ private final class SwitcherItemView: NSView {
         label.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalToConstant: 122),
-            heightAnchor.constraint(equalToConstant: 134),
-            background.topAnchor.constraint(equalTo: topAnchor),
+            widthAnchor.constraint(equalToConstant: 142.6),
+            heightAnchor.constraint(equalToConstant: 180.67),
             background.centerXAnchor.constraint(equalTo: centerXAnchor),
-            background.widthAnchor.constraint(equalToConstant: 116),
-            background.heightAnchor.constraint(equalToConstant: 116),
+            background.widthAnchor.constraint(equalToConstant: 129.03),
+            background.heightAnchor.constraint(equalToConstant: 129.03),
             icon.centerXAnchor.constraint(equalTo: background.centerXAnchor),
             icon.centerYAnchor.constraint(equalTo: background.centerYAnchor),
-            icon.widthAnchor.constraint(equalToConstant: 104),
-            icon.heightAnchor.constraint(equalToConstant: 104),
+            icon.centerYAnchor.constraint(equalTo: centerYAnchor),
+            icon.widthAnchor.constraint(equalToConstant: 136.85),
+            icon.heightAnchor.constraint(equalToConstant: 136.85),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
-            label.topAnchor.constraint(equalTo: background.bottomAnchor, constant: 7)
+            label.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: -2)
         ])
         updateAppearance()
     }
