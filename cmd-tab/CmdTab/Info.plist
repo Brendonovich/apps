@@ -30,5 +30,13 @@
     <string>Cmd Tab needs Accessibility access to replace the macOS app switcher and open the selected app's window.</string>
     <key>NSHighResolutionCapable</key>
     <true/>
+    <key>SUAutomaticallyUpdate</key>
+    <true/>
+    <key>SUEnableAutomaticChecks</key>
+    <true/>
+    <key>SUFeedURL</key>
+    <string>https://github.com/Brendonovich/apps/releases/latest/download/Cmd-Tab.xml</string>
+    <key>SUPublicEDKey</key>
+    <string>jIEO28JUQKUUuPf6ln/tzJRw7EwVIGhHXlz17iFWoRE=</string>
 </dict>
 </plist>

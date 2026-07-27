@@ -94,27 +94,44 @@ struct BatteryPoller: Sendable {
                   let properties = entry[name] as? [String: Any] else { return [] }
 
             let address = properties["device_address"] as? String ?? name
-            let components = [
-                ("Left", "device_batteryLevelLeft"),
-                ("Right", "device_batteryLevelRight"),
-                ("Case", "device_batteryLevelCase")
-            ]
+            func level(for key: String) -> Int? {
+                guard let rawLevel = properties[key] as? String else { return nil }
+                return Int(rawLevel.trimmingCharacters(in: CharacterSet(charactersIn: "%")))
+            }
 
-            return components.compactMap { component, key in
-                guard let rawLevel = properties[key] as? String,
-                      let level = Int(rawLevel.trimmingCharacters(in: CharacterSet(charactersIn: "%"))) else {
-                    return nil
-                }
-                return BatteryDevice(
-                    id: "airpods:\(address):\(component.lowercased())",
+            let leftLevel = level(for: "device_batteryLevelLeft")
+            let rightLevel = level(for: "device_batteryLevelRight")
+            let caseLevel = level(for: "device_batteryLevelCase")
+            var devices: [BatteryDevice] = []
+
+            let earbudLevels = [leftLevel, rightLevel].compactMap { $0 }
+            if let lowestEarbudLevel = earbudLevels.min() {
+                devices.append(BatteryDevice(
+                    id: "airpods:\(address):earbuds",
                     name: name,
-                    component: component,
-                    level: level,
+                    component: nil,
+                    level: lowestEarbudLevel,
+                    isCharging: nil,
+                    kind: .airPods,
+                    isConnected: connected,
+                    leftLevel: leftLevel,
+                    rightLevel: rightLevel
+                ))
+            }
+
+            if let caseLevel {
+                devices.append(BatteryDevice(
+                    id: "airpods:\(address):case",
+                    name: name,
+                    component: "Case",
+                    level: caseLevel,
                     isCharging: nil,
                     kind: .airPods,
                     isConnected: connected
-                )
+                ))
             }
+
+            return devices
         }
     }
 

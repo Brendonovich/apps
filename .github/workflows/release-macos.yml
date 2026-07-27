@@ -26,10 +26,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  release:
-    name: Production release
-    runs-on: macos-26
-    timeout-minutes: 90
+  prepare:
+    name: Prepare release
+    runs-on: ubuntu-latest
+    outputs:
+      app-version: ${{ steps.version.outputs.app-version }}
+      release-tag: ${{ steps.version.outputs.release-tag }}
 
     steps:
       - name: Check out repository
@@ -38,6 +40,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set release version
+        id: version
         env:
           VERSION_INCREMENT: ${{ inputs.increment }}
         run: |
@@ -59,8 +62,31 @@ jobs:
             patch) version="$major.$minor.$((patch + 1))" ;;
           esac
 
-          echo "APP_VERSION=$version" >> "$GITHUB_ENV"
-          echo "RELEASE_TAG=v$version" >> "$GITHUB_ENV"
+          echo "app-version=$version" >> "$GITHUB_OUTPUT"
+          echo "release-tag=v$version" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: ${{ matrix.name }} DMG
+    needs: prepare
+    runs-on: macos-26
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: battery-watch
+            name: Battery Watch
+            dmg: Battery-Watch.dmg
+          - app: input-guard
+            name: Input Guard
+            dmg: Input-Guard.dmg
+          - app: cmd-tab
+            name: Cmd Tab
+            dmg: Cmd-Tab.dmg
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
 
       - name: Set up Apple signing
         uses: ./.github/actions/setup-apple-signing
@@ -71,24 +97,50 @@ jobs:
           api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
           signing-identity: ${{ secrets.APPLE_SIGNING_IDENTITY }}
 
-      - name: Build Battery Watch
+      - name: Build ${{ matrix.name }}
         env:
+          APP_VERSION: ${{ needs.prepare.outputs.app-version }}
           APP_BUILD_NUMBER: ${{ github.run_number }}
-        run: scripts/build-app.sh battery-watch --notarize
+        run: scripts/build-app.sh "${{ matrix.app }}" --notarize
 
-      - name: Build Input Guard
+      - name: Generate ${{ matrix.name }} appcast
         env:
-          APP_BUILD_NUMBER: ${{ github.run_number }}
-        run: scripts/build-app.sh input-guard --notarize
+          RELEASE_TAG: ${{ needs.prepare.outputs.release-tag }}
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+        run: |
+          test -n "$SPARKLE_PRIVATE_KEY"
+          key_file="$RUNNER_TEMP/sparkle-private-key"
+          trap 'rm -f "$key_file"' EXIT
+          printf '%s' "$SPARKLE_PRIVATE_KEY" > "$key_file"
+          zsh scripts/create-appcast.sh "${{ matrix.app }}" "$RELEASE_TAG" "$key_file"
 
-      - name: Build Cmd Tab
-        env:
-          APP_BUILD_NUMBER: ${{ github.run_number }}
-        run: scripts/build-app.sh cmd-tab --notarize
+      - name: Upload ${{ matrix.name }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-${{ matrix.app }}
+          path: |
+            target/release/bundle/${{ matrix.app }}/dmg/${{ matrix.dmg }}
+            target/release/bundle/${{ matrix.app }}/dmg/*.xml
+          if-no-files-found: error
+          retention-days: 1
+
+  release:
+    name: Publish release
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download release assets
+        uses: actions/download-artifact@v7
+        with:
+          pattern: release-*
+          path: release-assets
+          merge-multiple: true
 
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.prepare.outputs.release-tag }}
           PRERELEASE: ${{ inputs.prerelease }}
         run: |
           args=(--target "$GITHUB_SHA" --generate-notes --title "$RELEASE_TAG")
@@ -96,7 +148,10 @@ jobs:
             args+=(--prerelease)
           fi
           gh release create "$RELEASE_TAG" \
-            target/release/bundle/battery-watch/dmg/Battery-Watch.dmg \
-            target/release/bundle/input-guard/dmg/Input-Guard.dmg \
-            target/release/bundle/cmd-tab/dmg/Cmd-Tab.dmg \
+            release-assets/Battery-Watch.dmg \
+            release-assets/Battery-Watch.xml \
+            release-assets/Input-Guard.dmg \
+            release-assets/Input-Guard.xml \
+            release-assets/Cmd-Tab.dmg \
+            release-assets/Cmd-Tab.xml \
             "${args[@]}"

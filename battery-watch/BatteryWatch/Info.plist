@@ -34,5 +34,13 @@
     <array>
         <string>_apple-mobdev2._tcp</string>
     </array>
+    <key>SUAutomaticallyUpdate</key>
+    <true/>
+    <key>SUEnableAutomaticChecks</key>
+    <true/>
+    <key>SUFeedURL</key>
+    <string>https://github.com/Brendonovich/apps/releases/latest/download/Battery-Watch.xml</string>
+    <key>SUPublicEDKey</key>
+    <string>jIEO28JUQKUUuPf6ln/tzJRw7EwVIGhHXlz17iFWoRE=</string>
 </dict>
 </plist>

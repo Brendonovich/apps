@@ -91,9 +91,17 @@ ditto "$derived_data/Build/Products/Release/$app_name.app" "$app"
 plutil -replace CFBundleShortVersionString -string "$version" "$app/Contents/Info.plist"
 plutil -replace CFBundleVersion -string "$build_number" "$app/Contents/Info.plist"
 
-sign_args=(--force --sign "$identity")
+sign_args=(--force --sign "$identity" --options runtime)
 if [[ "$identity" != "-" ]]; then
-    sign_args+=(--options runtime --timestamp)
+    sign_args+=(--timestamp)
+fi
+if [[ -d "$app/Contents/Frameworks/Sparkle.framework" ]]; then
+    sparkle="$app/Contents/Frameworks/Sparkle.framework/Versions/Current"
+    codesign "${sign_args[@]}" "$sparkle/XPCServices/Installer.xpc"
+    codesign "${sign_args[@]}" --preserve-metadata=entitlements "$sparkle/XPCServices/Downloader.xpc"
+    codesign "${sign_args[@]}" "$sparkle/Autoupdate"
+    codesign "${sign_args[@]}" "$sparkle/Updater.app"
+    codesign "${sign_args[@]}" "$app/Contents/Frameworks/Sparkle.framework"
 fi
 codesign "${sign_args[@]}" "$app"
 

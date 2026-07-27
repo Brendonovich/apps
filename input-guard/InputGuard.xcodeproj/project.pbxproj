@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00BBE07D105AE442582FC52D /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 27D2A16E6788DD5C5B139155 /* Sparkle */; };
 		0E7B3F3B61806BA5BE647A07 /* InputGuardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEBC4BD2E73E75021872F6F /* InputGuardApp.swift */; };
 		431F1FA65A5FDD02550DA83E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3ED530F1E72F3764FFE74E4 /* CoreAudio.framework */; };
 		65842F2EAB5298249AC31930 /* AudioDeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0FF023FD7FD47C679911F /* AudioDeviceController.swift */; };
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00BBE07D105AE442582FC52D /* Sparkle in Frameworks */,
 				431F1FA65A5FDD02550DA83E /* CoreAudio.framework in Frameworks */,
 				831D32F9C4C755960CFF7C47 /* ServiceManagement.framework in Frameworks */,
 			);
@@ -98,6 +100,9 @@
 			dependencies = (
 			);
 			name = InputGuard;
+			packageProductDependencies = (
+				27D2A16E6788DD5C5B139155 /* Sparkle */,
+			);
 			productName = InputGuard;
 			productReference = 5F43BD3A590615E155B259B3 /* InputGuard.app */;
 			productType = "com.apple.product-type.application";
@@ -125,6 +130,9 @@
 				en,
 			);
 			mainGroup = 499E60D334AF1B40AC95D100;
+			packageReferences = (
+				C66C2D53F8BE87F97A4CE7D3 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -333,6 +341,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C66C2D53F8BE87F97A4CE7D3 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		27D2A16E6788DD5C5B139155 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C66C2D53F8BE87F97A4CE7D3 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FE2CC02046410BC1C2408C52 /* Project object */;
 }

@@ -11,8 +11,10 @@
 		495A4F485874DA02FBF2B6BC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B711FD9ADC9ABC4DE22739B4 /* UserNotifications.framework */; };
 		4FC0FF17DF0817E993A17869 /* MenuBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C940273B0B77C90C9F0F362B /* MenuBarContent.swift */; };
 		6E6A68D764A7802104C4D9A1 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6659D863A1D22BC75FB37A58 /* ServiceManagement.framework */; };
+		76A7F27E945334F4FABC80D4 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA9595AF7501A62E00DB069 /* Network.framework */; };
 		7E120B0F2399662ECD5DD5FF /* BatteryDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78B0B14057F5EEC8AB2A121 /* BatteryDevice.swift */; };
 		A00ED3126EB0655FEF03D6D0 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090F69A076FF1389B64E3CCA /* AppModel.swift */; };
+		A74DC3034BDCF7909A84C8BB /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 54B52A5DF63EFFEDFDFA9C03 /* Sparkle */; };
 		BB36DB354A79E4AE776707F0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15EE21825755F247E55C9EA /* SettingsView.swift */; };
 		C67A190E018637F989BD54A0 /* BatteryPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89666FC16176824E37843C8F /* BatteryPoller.swift */; };
 /* End PBXBuildFile section */
@@ -23,6 +25,7 @@
 		6659D863A1D22BC75FB37A58 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		89666FC16176824E37843C8F /* BatteryPoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryPoller.swift; sourceTree = "<group>"; };
 		A78B0B14057F5EEC8AB2A121 /* BatteryDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDevice.swift; sourceTree = "<group>"; };
+		AEA9595AF7501A62E00DB069 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		B15EE21825755F247E55C9EA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B711FD9ADC9ABC4DE22739B4 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		C940273B0B77C90C9F0F362B /* MenuBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContent.swift; sourceTree = "<group>"; };
@@ -35,6 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A74DC3034BDCF7909A84C8BB /* Sparkle in Frameworks */,
+				76A7F27E945334F4FABC80D4 /* Network.framework in Frameworks */,
 				6E6A68D764A7802104C4D9A1 /* ServiceManagement.framework in Frameworks */,
 				495A4F485874DA02FBF2B6BC /* UserNotifications.framework in Frameworks */,
 			);
@@ -46,6 +51,7 @@
 		03A5BD2CCF89B87B70034575 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AEA9595AF7501A62E00DB069 /* Network.framework */,
 				6659D863A1D22BC75FB37A58 /* ServiceManagement.framework */,
 				B711FD9ADC9ABC4DE22739B4 /* UserNotifications.framework */,
 			);
@@ -98,6 +104,9 @@
 			dependencies = (
 			);
 			name = BatteryWatch;
+			packageProductDependencies = (
+				54B52A5DF63EFFEDFDFA9C03 /* Sparkle */,
+			);
 			productName = BatteryWatch;
 			productReference = F4AEDC3A9567ED2E3472CC16 /* BatteryWatch.app */;
 			productType = "com.apple.product-type.application";
@@ -125,6 +134,9 @@
 				en,
 			);
 			mainGroup = 2F9B4B179E0971C9076CF22B;
+			packageReferences = (
+				2834A19BE6D55AFFC7FCCE00 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -333,6 +345,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2834A19BE6D55AFFC7FCCE00 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		54B52A5DF63EFFEDFDFA9C03 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2834A19BE6D55AFFC7FCCE00 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CB7B912E260410AD67C3D0F9 /* Project object */;
 }

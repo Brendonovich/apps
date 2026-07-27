@@ -81,7 +81,7 @@ final class AppModel: ObservableObject {
         for device in newLowDevices {
             let content = UNMutableNotificationContent()
             content.title = "Low battery"
-            content.body = "\(device.displayName) is at \(device.level)%."
+            content.body = "\(device.displayName): \(device.levelText)."
             content.sound = .default
             let request = UNNotificationRequest(identifier: "low-battery:\(device.id)", content: content, trigger: nil)
             UNUserNotificationCenter.current().add(request)

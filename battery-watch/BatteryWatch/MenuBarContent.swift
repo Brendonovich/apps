@@ -1,8 +1,10 @@
 import AppKit
+import Sparkle
 import SwiftUI
 
 struct MenuBarContent: View {
     @ObservedObject var model: AppModel
+    let updaterController: SPUStandardUpdaterController
     @Environment(\.openWindow) private var openWindow
 
     var body: some View {
@@ -11,7 +13,7 @@ struct MenuBarContent: View {
         } else {
             ForEach(model.devices) { device in
                 Label {
-                    Text("\(device.displayName)  \(device.level)%")
+                    Text("\(device.displayName)  \(device.levelText)")
                 } icon: {
                     Image(systemName: device.symbolName)
                 }
@@ -28,6 +30,10 @@ struct MenuBarContent: View {
         Button("Settings...") {
             openWindow(id: "settings")
             NSApp.activate(ignoringOtherApps: true)
+        }
+
+        Button("Check for Updates...") {
+            updaterController.checkForUpdates(nil)
         }
 
         Divider()
