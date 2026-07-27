@@ -1,0 +1,338 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		33E0EC21EBF1D47AE1E24463 /* BatteryWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241AAF9F77E5A1E978A7CD7E /* BatteryWatchApp.swift */; };
+		495A4F485874DA02FBF2B6BC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B711FD9ADC9ABC4DE22739B4 /* UserNotifications.framework */; };
+		4FC0FF17DF0817E993A17869 /* MenuBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C940273B0B77C90C9F0F362B /* MenuBarContent.swift */; };
+		6E6A68D764A7802104C4D9A1 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6659D863A1D22BC75FB37A58 /* ServiceManagement.framework */; };
+		7E120B0F2399662ECD5DD5FF /* BatteryDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78B0B14057F5EEC8AB2A121 /* BatteryDevice.swift */; };
+		A00ED3126EB0655FEF03D6D0 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090F69A076FF1389B64E3CCA /* AppModel.swift */; };
+		BB36DB354A79E4AE776707F0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15EE21825755F247E55C9EA /* SettingsView.swift */; };
+		C67A190E018637F989BD54A0 /* BatteryPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89666FC16176824E37843C8F /* BatteryPoller.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		090F69A076FF1389B64E3CCA /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		241AAF9F77E5A1E978A7CD7E /* BatteryWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryWatchApp.swift; sourceTree = "<group>"; };
+		6659D863A1D22BC75FB37A58 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		89666FC16176824E37843C8F /* BatteryPoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryPoller.swift; sourceTree = "<group>"; };
+		A78B0B14057F5EEC8AB2A121 /* BatteryDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDevice.swift; sourceTree = "<group>"; };
+		B15EE21825755F247E55C9EA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B711FD9ADC9ABC4DE22739B4 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		C940273B0B77C90C9F0F362B /* MenuBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContent.swift; sourceTree = "<group>"; };
+		EE84E1251E8AC2C26E563B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F4AEDC3A9567ED2E3472CC16 /* BatteryWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BatteryWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C56350737955770E581C809C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E6A68D764A7802104C4D9A1 /* ServiceManagement.framework in Frameworks */,
+				495A4F485874DA02FBF2B6BC /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03A5BD2CCF89B87B70034575 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6659D863A1D22BC75FB37A58 /* ServiceManagement.framework */,
+				B711FD9ADC9ABC4DE22739B4 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		074A3476CCEDBACBC3778D5B /* BatteryWatch */ = {
+			isa = PBXGroup;
+			children = (
+				090F69A076FF1389B64E3CCA /* AppModel.swift */,
+				A78B0B14057F5EEC8AB2A121 /* BatteryDevice.swift */,
+				89666FC16176824E37843C8F /* BatteryPoller.swift */,
+				241AAF9F77E5A1E978A7CD7E /* BatteryWatchApp.swift */,
+				EE84E1251E8AC2C26E563B73 /* Info.plist */,
+				C940273B0B77C90C9F0F362B /* MenuBarContent.swift */,
+				B15EE21825755F247E55C9EA /* SettingsView.swift */,
+			);
+			path = BatteryWatch;
+			sourceTree = "<group>";
+		};
+		2F9B4B179E0971C9076CF22B = {
+			isa = PBXGroup;
+			children = (
+				074A3476CCEDBACBC3778D5B /* BatteryWatch */,
+				03A5BD2CCF89B87B70034575 /* Frameworks */,
+				71221188711EA516679FD189 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		71221188711EA516679FD189 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4AEDC3A9567ED2E3472CC16 /* BatteryWatch.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04DE3B9932FFBD0977D1CC5E /* BatteryWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B29B27D33888BC13BB72E701 /* Build configuration list for PBXNativeTarget "BatteryWatch" */;
+			buildPhases = (
+				65AD013D12FC7D7F7F5CC3E3 /* Sources */,
+				C56350737955770E581C809C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BatteryWatch;
+			productName = BatteryWatch;
+			productReference = F4AEDC3A9567ED2E3472CC16 /* BatteryWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CB7B912E260410AD67C3D0F9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					04DE3B9932FFBD0977D1CC5E = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 125599CFA491EBEB820A0326 /* Build configuration list for PBXProject "BatteryWatch" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 2F9B4B179E0971C9076CF22B;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04DE3B9932FFBD0977D1CC5E /* BatteryWatch */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		65AD013D12FC7D7F7F5CC3E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00ED3126EB0655FEF03D6D0 /* AppModel.swift in Sources */,
+				7E120B0F2399662ECD5DD5FF /* BatteryDevice.swift in Sources */,
+				C67A190E018637F989BD54A0 /* BatteryPoller.swift in Sources */,
+				33E0EC21EBF1D47AE1E24463 /* BatteryWatchApp.swift in Sources */,
+				4FC0FF17DF0817E993A17869 /* MenuBarContent.swift in Sources */,
+				BB36DB354A79E4AE776707F0 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5851A2D9A1A2118B53217E85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		58813CEDFF7939291D7A681E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6DFA0E1269695D27765769E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BatteryWatch/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brendonovich.BatteryWatch;
+				PRODUCT_NAME = "Battery Watch";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A48B77E8F27F9AE4CB5CF05C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BatteryWatch/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brendonovich.BatteryWatch;
+				PRODUCT_NAME = "Battery Watch";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		125599CFA491EBEB820A0326 /* Build configuration list for PBXProject "BatteryWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58813CEDFF7939291D7A681E /* Debug */,
+				5851A2D9A1A2118B53217E85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B29B27D33888BC13BB72E701 /* Build configuration list for PBXNativeTarget "BatteryWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A48B77E8F27F9AE4CB5CF05C /* Debug */,
+				6DFA0E1269695D27765769E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CB7B912E260410AD67C3D0F9 /* Project object */;
+}
