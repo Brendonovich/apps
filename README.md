@@ -1,6 +1,6 @@
 # Apps
 
-A collection of small applications.
+vibe coded personal apps
 
 ## Projects
 
