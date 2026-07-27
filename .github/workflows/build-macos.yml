@@ -1,0 +1,52 @@
+name: Build macOS
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.name }} DMG
+    runs-on: macos-26
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: battery-watch
+            name: Battery Watch
+            artifact: battery-watch-macos
+            dmg: Battery-Watch.dmg
+          - app: input-guard
+            name: Input Guard
+            artifact: input-guard-macos
+            dmg: Input-Guard.dmg
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Apple signing
+        uses: ./.github/actions/setup-apple-signing
+        with:
+          certificate-p12-base64: ${{ secrets.APPLE_CERTIFICATE_P12_BASE64 }}
+          certificate-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          api-key-p8-base64: ${{ secrets.APPLE_API_KEY_P8_BASE64 }}
+          api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
+          signing-identity: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+
+      - name: Build ${{ matrix.name }}
+        env:
+          APP_BUILD_NUMBER: ${{ github.run_number }}
+        run: scripts/build-app.sh "${{ matrix.app }}" --notarize
+
+      - name: Upload ${{ matrix.name }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.artifact }}-${{ runner.arch }}
+          path: target/release/bundle/${{ matrix.app }}/dmg/${{ matrix.dmg }}
+          if-no-files-found: error
+          retention-days: 14
