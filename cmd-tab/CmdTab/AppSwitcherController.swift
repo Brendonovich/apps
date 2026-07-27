@@ -19,6 +19,7 @@ final class AppSwitcherController {
     private var isSwitching = false
     private let panel = SwitcherPanel()
     private var observers: [NSObjectProtocol] = []
+    private let windowRestoreAttempts = 10
 
     init() {
         panel.onSelect = { [weak self] index in
@@ -165,7 +166,7 @@ final class AppSwitcherController {
         application.unhide()
         guard let bundleURL = application.bundleURL else {
             application.activate(options: [.activateAllWindows])
-            restoreOrOpenWindow(for: application)
+            restoreOrOpenWindow(for: application, attemptsRemaining: windowRestoreAttempts)
             return
         }
 
@@ -173,14 +174,16 @@ final class AppSwitcherController {
         configuration.activates = true
         configuration.addsToRecentItems = false
         NSWorkspace.shared.openApplication(at: bundleURL, configuration: configuration) { [weak self] reopenedApplication, _ in
+            guard let self else { return }
             let activeApplication = reopenedApplication ?? application
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                self?.restoreOrOpenWindow(for: activeApplication)
-            }
+            activeApplication.activate(options: [.activateAllWindows])
+            self.restoreOrOpenWindow(for: activeApplication, attemptsRemaining: self.windowRestoreAttempts)
         }
     }
 
-    private func restoreOrOpenWindow(for application: NSRunningApplication) {
+    private func restoreOrOpenWindow(for application: NSRunningApplication, attemptsRemaining: Int) {
+        guard !hasOnScreenWindow(processID: application.processIdentifier) else { return }
+
         let appElement = AXUIElementCreateApplication(application.processIdentifier)
         AXUIElementSetAttributeValue(appElement, kAXHiddenAttribute as CFString, kCFBooleanFalse)
 
@@ -191,9 +194,17 @@ final class AppSwitcherController {
             AXUIElementPerformAction(window, kAXRaiseAction as CFString)
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            guard !self.hasOnScreenWindow(processID: application.processIdentifier) else { return }
-            self.sendNewWindowShortcut(to: application.processIdentifier)
+        guard attemptsRemaining > 0 else {
+            if hasWindowOnAnySpace(processID: application.processIdentifier) {
+                application.activate(options: [.activateAllWindows])
+            } else {
+                sendNewWindowShortcut(to: application.processIdentifier)
+            }
+            return
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            self?.restoreOrOpenWindow(for: application, attemptsRemaining: attemptsRemaining - 1)
         }
     }
 
@@ -215,11 +226,18 @@ final class AppSwitcherController {
 
     private func hasOnScreenWindow(processID: pid_t) -> Bool {
         let windowInfo = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]] ?? []
-        return windowInfo.contains { info in
-            let ownerProcessID = (info[kCGWindowOwnerPID as String] as? NSNumber)?.int32Value
-            let layer = (info[kCGWindowLayer as String] as? NSNumber)?.intValue
-            return ownerProcessID == processID && layer == 0
-        }
+        return windowInfo.contains { isRegularWindow($0, ownedBy: processID) }
+    }
+
+    private func hasWindowOnAnySpace(processID: pid_t) -> Bool {
+        let windowInfo = CGWindowListCopyWindowInfo([.optionAll, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]] ?? []
+        return windowInfo.contains { isRegularWindow($0, ownedBy: processID) }
+    }
+
+    private func isRegularWindow(_ info: [String: Any], ownedBy processID: pid_t) -> Bool {
+        let ownerProcessID = (info[kCGWindowOwnerPID as String] as? NSNumber)?.int32Value
+        let layer = (info[kCGWindowLayer as String] as? NSNumber)?.intValue
+        return ownerProcessID == processID && layer == 0
     }
 
     private func orderedApplications() -> [NSRunningApplication] {
