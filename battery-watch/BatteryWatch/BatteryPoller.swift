@@ -6,6 +6,9 @@ struct PollResult: Sendable {
 }
 
 struct BatteryPoller: Sendable {
+    private static let networkDiscoveryAttempts = 8
+    private static let networkDiscoveryRetryDelay = 2.0
+
     func poll() -> PollResult {
         var devices: [BatteryDevice] = []
         var errors: [String] = []
@@ -40,9 +43,16 @@ struct BatteryPoller: Sendable {
             throw PollError.message("Install libimobiledevice with `brew install libimobiledevice` to monitor iPhones.")
         }
 
-        let identifiers = try run(deviceIDPath, ["--network"])
-            .split(whereSeparator: \Character.isNewline)
-            .map(String.init)
+        var identifiers: [String] = []
+        for attempt in 0..<Self.networkDiscoveryAttempts {
+            identifiers = try run(deviceIDPath, ["--network"])
+                .split(whereSeparator: \Character.isNewline)
+                .map(String.init)
+            if !identifiers.isEmpty { break }
+            if attempt < Self.networkDiscoveryAttempts - 1 {
+                Thread.sleep(forTimeInterval: Self.networkDiscoveryRetryDelay)
+            }
+        }
 
         return identifiers.compactMap { identifier in
             guard let batteryOutput = try? run(deviceInfoPath, [

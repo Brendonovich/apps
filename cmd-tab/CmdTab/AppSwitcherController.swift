@@ -164,7 +164,7 @@ final class AppSwitcherController {
 
     private func activateAndOpenWindow(for application: NSRunningApplication) {
         application.unhide()
-        guard let bundleURL = application.bundleURL else {
+        guard let bundleURL = application.bundleURL, bundleURL.pathExtension == "app" else {
             application.activate(options: [.activateAllWindows])
             restoreOrOpenWindow(for: application, attemptsRemaining: windowRestoreAttempts)
             return
@@ -273,7 +273,7 @@ final class AppSwitcherController {
         let center = NSWorkspace.shared.notificationCenter
         observers.append(center.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] notification in
             guard let application = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else { return }
-            self?.recordActivation(of: application.processIdentifier)
+            self?.recordActivation(of: application)
         })
         observers.append(center.addObserver(forName: NSWorkspace.didTerminateApplicationNotification, object: nil, queue: .main) { [weak self] notification in
             guard let application = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else { return }
@@ -281,8 +281,25 @@ final class AppSwitcherController {
         })
     }
 
-    private func recordActivation(of processID: pid_t) {
+    private func recordActivation(of application: NSRunningApplication) {
+        let processID = application.processIdentifier
         recentProcessIDs.removeAll { $0 == processID }
         recentProcessIDs.insert(processID, at: 0)
+
+        guard application.activationPolicy == .regular,
+              !application.isTerminated,
+              processID != ProcessInfo.processInfo.processIdentifier else { return }
+        let selectedProcessID = applications.indices.contains(selectedIndex)
+            ? applications[selectedIndex].processIdentifier
+            : nil
+        applications.removeAll { $0.processIdentifier == processID }
+        applications.insert(application, at: 0)
+
+        guard isSwitching else { return }
+        if let selectedProcessID,
+           let index = applications.firstIndex(where: { $0.processIdentifier == selectedProcessID }) {
+            selectedIndex = index
+        }
+        panel.show(applications: applications, selectedIndex: selectedIndex)
     }
 }

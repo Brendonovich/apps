@@ -106,6 +106,10 @@ final class AppModel: ObservableObject {
             guard case .ready = state else { return }
             Task { @MainActor in self?.checkNow() }
         }
+        browser.browseResultsChangedHandler = { [weak self] results, _ in
+            guard !results.isEmpty else { return }
+            Task { @MainActor in self?.checkNow() }
+        }
         browser.start(queue: .global(qos: .utility))
         localNetworkBrowser = browser
     }
