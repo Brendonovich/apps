@@ -24,6 +24,10 @@ jobs:
             name: Input Guard
             artifact: input-guard-macos
             dmg: Input-Guard.dmg
+          - app: cmd-tab
+            name: Cmd Tab
+            artifact: cmd-tab-macos
+            dmg: Cmd-Tab.dmg
 
     steps:
       - name: Check out repository

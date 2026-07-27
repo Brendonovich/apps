@@ -24,8 +24,16 @@ case "$slug" in
         bundle_id="com.brendonovich.InputGuard"
         dmg_name="Input-Guard.dmg"
         ;;
+    cmd-tab)
+        project_dir="$workspace/cmd-tab"
+        project="CmdTab.xcodeproj"
+        scheme="CmdTab"
+        app_name="Cmd Tab"
+        bundle_id="com.brendonovich.CmdTab"
+        dmg_name="Cmd-Tab.dmg"
+        ;;
     *)
-        print -u2 "Usage: build-app.sh {battery-watch|input-guard} [--dmg] [--notarize]"
+        print -u2 "Usage: build-app.sh {battery-watch|input-guard|cmd-tab} [--dmg] [--notarize]"
         exit 2
         ;;
 esac

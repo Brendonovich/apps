@@ -56,6 +56,11 @@ jobs:
           APP_BUILD_NUMBER: ${{ github.run_number }}
         run: scripts/build-app.sh input-guard --notarize
 
+      - name: Build Cmd Tab
+        env:
+          APP_BUILD_NUMBER: ${{ github.run_number }}
+        run: scripts/build-app.sh cmd-tab --notarize
+
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -69,4 +74,5 @@ jobs:
           gh release create "$RELEASE_TAG" \
             target/release/bundle/battery-watch/dmg/Battery-Watch.dmg \
             target/release/bundle/input-guard/dmg/Input-Guard.dmg \
+            target/release/bundle/cmd-tab/dmg/Cmd-Tab.dmg \
             "${args[@]}"

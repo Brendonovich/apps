@@ -1,0 +1,330 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16AEAB987DC2EFB659483734 /* CmdTabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85ED48A2E1512246F0AFD7 /* CmdTabApp.swift */; };
+		4A27FF933D67083DA4827E65 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2C270A6417311FF30CA35C5 /* ServiceManagement.framework */; };
+		5D5D964CC675063454E7F655 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601F3B506F0FAD1EDA1F4357 /* ApplicationServices.framework */; };
+		6CE0B519722DDE2E78A0EB30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BE598A41E03BA334EB89E0 /* AppDelegate.swift */; };
+		945C1A00C96DB155A032521E /* SwitcherPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F2422A9106EDAAA15B4C5 /* SwitcherPanel.swift */; };
+		968B128C83536DD5E658A2F9 /* AppSwitcherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5646D55CA87C683508080D9 /* AppSwitcherController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0B02F4D9736D3B8263397B42 /* CmdTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CmdTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11BE598A41E03BA334EB89E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		601F3B506F0FAD1EDA1F4357 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		676F2422A9106EDAAA15B4C5 /* SwitcherPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherPanel.swift; sourceTree = "<group>"; };
+		BF85ED48A2E1512246F0AFD7 /* CmdTabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CmdTabApp.swift; sourceTree = "<group>"; };
+		D5646D55CA87C683508080D9 /* AppSwitcherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSwitcherController.swift; sourceTree = "<group>"; };
+		E2C270A6417311FF30CA35C5 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		F141FA6F933C6DD36CFC5812 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		841ED1E726776769FCA50D99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D5D964CC675063454E7F655 /* ApplicationServices.framework in Frameworks */,
+				4A27FF933D67083DA4827E65 /* ServiceManagement.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		071CFB1D83CA6D1C079FAB80 = {
+			isa = PBXGroup;
+			children = (
+				69CD33E6789F2C9A9278AC78 /* CmdTab */,
+				6C9647F02D00EC4429E1FA56 /* Frameworks */,
+				EE4020873D340FE3651F59C3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		69CD33E6789F2C9A9278AC78 /* CmdTab */ = {
+			isa = PBXGroup;
+			children = (
+				11BE598A41E03BA334EB89E0 /* AppDelegate.swift */,
+				D5646D55CA87C683508080D9 /* AppSwitcherController.swift */,
+				BF85ED48A2E1512246F0AFD7 /* CmdTabApp.swift */,
+				F141FA6F933C6DD36CFC5812 /* Info.plist */,
+				676F2422A9106EDAAA15B4C5 /* SwitcherPanel.swift */,
+			);
+			path = CmdTab;
+			sourceTree = "<group>";
+		};
+		6C9647F02D00EC4429E1FA56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				601F3B506F0FAD1EDA1F4357 /* ApplicationServices.framework */,
+				E2C270A6417311FF30CA35C5 /* ServiceManagement.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE4020873D340FE3651F59C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0B02F4D9736D3B8263397B42 /* CmdTab.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		03D841125B0443451641219D /* CmdTab */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3B2201E91763FAF16423BD0 /* Build configuration list for PBXNativeTarget "CmdTab" */;
+			buildPhases = (
+				A15DF99C967E56B9142BA3D6 /* Sources */,
+				841ED1E726776769FCA50D99 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CmdTab;
+			productName = CmdTab;
+			productReference = 0B02F4D9736D3B8263397B42 /* CmdTab.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7B9C63D21207F4E376888024 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					03D841125B0443451641219D = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 7A5458820B75E535C3DFC36A /* Build configuration list for PBXProject "CmdTab" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 071CFB1D83CA6D1C079FAB80;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				03D841125B0443451641219D /* CmdTab */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A15DF99C967E56B9142BA3D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CE0B519722DDE2E78A0EB30 /* AppDelegate.swift in Sources */,
+				968B128C83536DD5E658A2F9 /* AppSwitcherController.swift in Sources */,
+				16AEAB987DC2EFB659483734 /* CmdTabApp.swift in Sources */,
+				945C1A00C96DB155A032521E /* SwitcherPanel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5B018E6C83EBB37CE68B0AEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CmdTab/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brendonovich.CmdTab;
+				PRODUCT_NAME = "Cmd Tab";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		634DA05B69B3F1EC0085607C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B3437617485CB4996F78BE76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BA3A0B68A1F9FF0DDA761773 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CmdTab/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brendonovich.CmdTab;
+				PRODUCT_NAME = "Cmd Tab";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A5458820B75E535C3DFC36A /* Build configuration list for PBXProject "CmdTab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3437617485CB4996F78BE76 /* Debug */,
+				634DA05B69B3F1EC0085607C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B3B2201E91763FAF16423BD0 /* Build configuration list for PBXNativeTarget "CmdTab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA3A0B68A1F9FF0DDA761773 /* Debug */,
+				5B018E6C83EBB37CE68B0AEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7B9C63D21207F4E376888024 /* Project object */;
+}

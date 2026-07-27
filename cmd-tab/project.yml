@@ -1,0 +1,28 @@
+name: CmdTab
+options:
+  bundleIdPrefix: com.brendonovich
+  deploymentTarget:
+    macOS: "14.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+targets:
+  CmdTab:
+    type: application
+    platform: macOS
+    sources:
+      - CmdTab
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.brendonovich.CmdTab
+        PRODUCT_NAME: Cmd Tab
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: CmdTab/Info.plist
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: YES
+        DEAD_CODE_STRIPPING: YES
+    dependencies:
+      - sdk: ApplicationServices.framework
+      - sdk: ServiceManagement.framework
