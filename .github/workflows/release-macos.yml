@@ -3,10 +3,15 @@ name: Release macOS
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: Release tag (for example, v1.0.0)
+      increment:
+        description: Version increment
         required: true
-        type: string
+        default: patch
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
       prerelease:
         description: Mark as a prerelease
         required: true
@@ -15,6 +20,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: release-macos
+  cancel-in-progress: false
 
 jobs:
   release:
@@ -25,17 +34,33 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Set release version
         env:
-          RELEASE_TAG: ${{ inputs.tag }}
+          VERSION_INCREMENT: ${{ inputs.increment }}
         run: |
-          version="${RELEASE_TAG#v}"
-          if [[ "$RELEASE_TAG" != v* || ! "$version" =~ ^[0-9]+(\.[0-9]+){0,2}$ ]]; then
-            echo "Release tag must be a version prefixed with v (for example, v1.0.0)." >&2
-            exit 2
-          fi
+          latest_tag=""
+          while IFS= read -r tag; do
+            if [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              latest_tag="$tag"
+              break
+            fi
+          done < <(git tag --list 'v*' --sort=-version:refname)
+
+          version="${latest_tag#v}"
+          version="${version:-0.0.0}"
+          IFS=. read -r major minor patch <<< "$version"
+
+          case "$VERSION_INCREMENT" in
+            major) version="$((major + 1)).0.0" ;;
+            minor) version="$major.$((minor + 1)).0" ;;
+            patch) version="$major.$minor.$((patch + 1))" ;;
+          esac
+
           echo "APP_VERSION=$version" >> "$GITHUB_ENV"
+          echo "RELEASE_TAG=v$version" >> "$GITHUB_ENV"
 
       - name: Set up Apple signing
         uses: ./.github/actions/setup-apple-signing
@@ -64,7 +89,6 @@ jobs:
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ inputs.tag }}
           PRERELEASE: ${{ inputs.prerelease }}
         run: |
           args=(--target "$GITHUB_SHA" --generate-notes --title "$RELEASE_TAG")
