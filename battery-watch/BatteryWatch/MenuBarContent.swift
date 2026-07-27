@@ -11,11 +11,7 @@ struct MenuBarContent: View {
         } else {
             ForEach(model.devices) { device in
                 Label {
-                    HStack {
-                        Text(device.displayName)
-                        Spacer()
-                        Text("\(device.level)%")
-                    }
+                    Text("\(device.displayName)  \(device.level)%")
                 } icon: {
                     Image(systemName: device.symbolName)
                 }

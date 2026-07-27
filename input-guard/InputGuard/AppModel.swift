@@ -6,12 +6,6 @@ final class AppModel: ObservableObject {
     @Published private(set) var devices: [AudioDevice] = []
     @Published private(set) var defaultInputID: AudioDevice.ID?
     @Published private(set) var excludedUIDs: Set<String>
-    @Published var protectionEnabled: Bool {
-        didSet {
-            defaults.set(protectionEnabled, forKey: Keys.protectionEnabled)
-            enforceAllowedDefault()
-        }
-    }
     @Published private(set) var launchAtLogin = false
     @Published private(set) var loginItemNeedsApproval = false
     @Published private(set) var lastError: String?
@@ -23,7 +17,6 @@ final class AppModel: ObservableObject {
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         excludedUIDs = Set(defaults.stringArray(forKey: Keys.excludedUIDs) ?? [])
-        protectionEnabled = defaults.object(forKey: Keys.protectionEnabled) as? Bool ?? true
         lastAllowedUID = defaults.string(forKey: Keys.lastAllowedUID)
 
         audio.onChange = { [weak self] in self?.refresh() }
@@ -37,7 +30,7 @@ final class AppModel: ObservableObject {
     }
 
     var menuBarIcon: String {
-        protectionEnabled ? "mic.badge.xmark" : "mic"
+        "mic.badge.xmark"
     }
 
     func isExcluded(_ device: AudioDevice) -> Bool {
@@ -82,8 +75,7 @@ final class AppModel: ObservableObject {
     }
 
     private func enforceAllowedDefault() {
-        guard protectionEnabled,
-              let current = defaultInput,
+        guard let current = defaultInput,
               excludedUIDs.contains(current.uid) else { return }
 
         let allowed = devices.filter { !excludedUIDs.contains($0.uid) }
@@ -119,7 +111,6 @@ final class AppModel: ObservableObject {
 
     private enum Keys {
         static let excludedUIDs = "excludedDeviceUIDs"
-        static let protectionEnabled = "protectionEnabled"
         static let lastAllowedUID = "lastAllowedDeviceUID"
         static let configuredLoginItem = "configuredLoginItem"
     }

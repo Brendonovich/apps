@@ -12,8 +12,6 @@ struct MenuBarContent: View {
             Text("No input device")
         }
 
-        Toggle("Protect default input", isOn: $model.protectionEnabled)
-
         Divider()
 
         Button("Manage Excluded Devices…") {
