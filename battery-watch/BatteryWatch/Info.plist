@@ -28,5 +28,11 @@
     <true/>
     <key>NSHighResolutionCapable</key>
     <true/>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>Battery Watch uses your local network to read battery information from trusted iPhones.</string>
+    <key>NSBonjourServices</key>
+    <array>
+        <string>_apple-mobdev2._tcp</string>
+    </array>
 </dict>
 </plist>

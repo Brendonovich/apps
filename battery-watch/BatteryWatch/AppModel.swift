@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import Network
 import ServiceManagement
 import UserNotifications
 
@@ -17,12 +18,14 @@ final class AppModel: ObservableObject {
     private let poller = BatteryPoller()
     private let defaults: UserDefaults
     private var alertedDeviceIDs: Set<String> = []
+    private var localNetworkBrowser: NWBrowser?
     private var timer: Timer?
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         configureInitialLoginItemIfNeeded()
         refreshLoginItemStatus()
+        startLocalNetworkDiscovery()
         requestNotificationPermissionAndCheck()
 
         let timer = Timer.scheduledTimer(withTimeInterval: 15 * 60, repeats: true) { [weak self] _ in
@@ -90,6 +93,21 @@ final class AppModel: ObservableObject {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { [weak self] _, _ in
             Task { @MainActor in self?.checkNow() }
         }
+    }
+
+    private func startLocalNetworkDiscovery() {
+        let parameters = NWParameters()
+        parameters.includePeerToPeer = true
+        let browser = NWBrowser(
+            for: .bonjour(type: "_apple-mobdev2._tcp", domain: nil),
+            using: parameters
+        )
+        browser.stateUpdateHandler = { [weak self] state in
+            guard case .ready = state else { return }
+            Task { @MainActor in self?.checkNow() }
+        }
+        browser.start(queue: .global(qos: .utility))
+        localNetworkBrowser = browser
     }
 
     private func configureInitialLoginItemIfNeeded() {
