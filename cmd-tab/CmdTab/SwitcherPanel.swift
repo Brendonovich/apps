@@ -158,13 +158,13 @@ private final class SwitcherItemView: NSView {
         trackingAreas.forEach(removeTrackingArea)
         addTrackingArea(NSTrackingArea(
             rect: bounds,
-            options: [.activeAlways, .mouseEnteredAndExited],
+            options: [.activeAlways, .mouseMoved],
             owner: self
         ))
         super.updateTrackingAreas()
     }
 
-    override func mouseEntered(with event: NSEvent) {
+    override func mouseMoved(with event: NSEvent) {
         onSelect?(index)
     }
 
