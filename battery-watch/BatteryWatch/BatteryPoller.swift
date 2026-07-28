@@ -20,7 +20,7 @@ struct BatteryPoller: Sendable {
         }
 
         do {
-            devices.append(contentsOf: try airPods())
+            devices.append(contentsOf: try bluetoothDevices())
         } catch {
             errors.append(error.localizedDescription)
         }
@@ -79,7 +79,7 @@ struct BatteryPoller: Sendable {
         }
     }
 
-    private func airPods() throws -> [BatteryDevice] {
+    private func bluetoothDevices() throws -> [BatteryDevice] {
         let output = try run("/usr/sbin/system_profiler", ["SPBluetoothDataType", "-json"])
         guard let data = output.data(using: .utf8),
               let root = try JSONSerialization.jsonObject(with: data) as? [String: Any],
@@ -87,26 +87,59 @@ struct BatteryPoller: Sendable {
             throw PollError.message("Could not read Bluetooth battery information.")
         }
 
+        let accessoryBatteries = (try? accessoryBatteries()) ?? [:]
         var devices: [BatteryDevice] = []
         for controller in bluetooth {
-            devices.append(contentsOf: airPods(in: controller["device_connected"], connected: true))
-            devices.append(contentsOf: airPods(in: controller["device_not_connected"], connected: false))
+            devices.append(contentsOf: bluetoothDevices(
+                in: controller["device_connected"],
+                connected: true,
+                accessoryBatteries: accessoryBatteries
+            ))
+            devices.append(contentsOf: bluetoothDevices(
+                in: controller["device_not_connected"],
+                connected: false,
+                accessoryBatteries: accessoryBatteries
+            ))
         }
         return devices
     }
 
-    private func airPods(in value: Any?, connected: Bool) -> [BatteryDevice] {
+    private func bluetoothDevices(
+        in value: Any?,
+        connected: Bool,
+        accessoryBatteries: [String: AccessoryBattery]
+    ) -> [BatteryDevice] {
         guard let entries = value as? [[String: Any]] else { return [] }
 
         return entries.flatMap { entry -> [BatteryDevice] in
             guard let name = entry.keys.first,
-                  name.localizedCaseInsensitiveContains("airpods"),
                   let properties = entry[name] as? [String: Any] else { return [] }
 
             let address = properties["device_address"] as? String ?? name
             func level(for key: String) -> Int? {
                 guard let rawLevel = properties[key] as? String else { return nil }
                 return Int(rawLevel.trimmingCharacters(in: CharacterSet(charactersIn: "%")))
+            }
+
+            guard name.localizedCaseInsensitiveContains("airpods") else {
+                let minorType = (properties["device_minorType"] as? String)?.lowercased()
+                guard connected,
+                      minorType == "headphones" || minorType == "headset" else { return [] }
+
+                let accessoryBattery = accessoryBatteries[name.lowercased()]
+                guard let mainLevel = accessoryBattery?.level ?? level(for: "device_batteryLevelMain") else {
+                    return []
+                }
+
+                return [BatteryDevice(
+                    id: "headphones:\(address)",
+                    name: name,
+                    component: nil,
+                    level: mainLevel,
+                    isCharging: accessoryBattery?.isCharging,
+                    kind: .headphones,
+                    isConnected: true
+                )]
             }
 
             let leftLevel = level(for: "device_batteryLevelLeft")
@@ -145,6 +178,37 @@ struct BatteryPoller: Sendable {
         }
     }
 
+    private func accessoryBatteries() throws -> [String: AccessoryBattery] {
+        let output = try run("/usr/bin/pmset", ["-g", "accps"])
+        return output.split(whereSeparator: \Character.isNewline).reduce(into: [:]) { batteries, line in
+            let text = line.trimmingCharacters(in: .whitespaces)
+            guard text.hasPrefix("-"),
+                  let identifierRange = text.range(of: " (id="),
+                  let closingParenthesis = text[identifierRange.upperBound...].firstIndex(of: ")") else {
+                return
+            }
+
+            let name = String(text[text.index(after: text.startIndex)..<identifierRange.lowerBound])
+            let status = text[text.index(after: closingParenthesis)...]
+            guard let firstField = status.split(separator: ";", maxSplits: 1).first,
+                  let level = Int(firstField.trimmingCharacters(in: CharacterSet.whitespaces.union(
+                    CharacterSet(charactersIn: "%")
+                  ))) else { return }
+
+            let isCharging: Bool?
+            if status.localizedCaseInsensitiveContains("; charging;") ||
+                status.localizedCaseInsensitiveContains("; charged;") {
+                isCharging = true
+            } else if status.localizedCaseInsensitiveContains("; discharging") {
+                isCharging = false
+            } else {
+                isCharging = nil
+            }
+
+            batteries[name.lowercased()] = AccessoryBattery(level: level, isCharging: isCharging)
+        }
+    }
+
     private func keyValues(in output: String) -> [String: String] {
         Dictionary(uniqueKeysWithValues: output.split(whereSeparator: \Character.isNewline).compactMap { line in
             let parts = line.split(separator: ":", maxSplits: 1)
@@ -177,6 +241,11 @@ struct BatteryPoller: Sendable {
         }
         return output
     }
+}
+
+private struct AccessoryBattery {
+    let level: Int
+    let isCharging: Bool?
 }
 
 private enum PollError: LocalizedError {

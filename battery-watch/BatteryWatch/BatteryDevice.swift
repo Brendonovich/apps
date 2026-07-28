@@ -4,6 +4,7 @@ struct BatteryDevice: Identifiable, Equatable, Sendable {
     enum Kind: Sendable {
         case iPhone
         case airPods
+        case headphones
     }
 
     let id: String
@@ -47,6 +48,7 @@ struct BatteryDevice: Identifiable, Equatable, Sendable {
         switch kind {
         case .iPhone: "iphone"
         case .airPods: "airpodspro"
+        case .headphones: "headphones"
         }
     }
 

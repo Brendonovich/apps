@@ -1,8 +1,8 @@
 # Battery Watch
 
-Battery Watch is a native macOS menu bar utility that checks trusted iPhones and known AirPods every 15 minutes. It sends a notification when a reported battery level drops below 25% and does not alert again until that battery recovers.
+Battery Watch is a native macOS menu bar utility that checks trusted iPhones, known AirPods, and connected Bluetooth headphones every 15 minutes. It sends a notification when a reported battery level drops below 25% and does not alert again until that battery recovers.
 
-iPhones are queried over Wi-Fi with `libimobiledevice`. AirPods battery levels come from macOS Bluetooth data and may be stale while the case is closed or away from the Mac.
+iPhones are queried over Wi-Fi with `libimobiledevice`. AirPods battery levels come from macOS Bluetooth data and may be stale while the case is closed or away from the Mac. Other headphones, including supported Sony models, use the connected accessory battery reported by macOS.
 
 ## Setup
 

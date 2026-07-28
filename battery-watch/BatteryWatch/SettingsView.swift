@@ -9,7 +9,7 @@ struct SettingsView: View {
             Label("Battery Watch", systemImage: "battery.25")
                 .font(.title2.bold())
 
-            Text("Checks trusted iPhones and known AirPods every 15 minutes. A notification is sent when a battery drops below \(AppModel.threshold)%.")
+            Text("Checks trusted iPhones, known AirPods, and connected Bluetooth headphones every 15 minutes. A notification is sent when a battery drops below \(AppModel.threshold)%.")
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
 
@@ -51,7 +51,7 @@ struct SettingsView: View {
                     .foregroundStyle(.red)
             }
 
-            Text("AirPods report their latest Bluetooth battery values. Values may remain unchanged while the case is closed or the AirPods are away from this Mac.")
+            Text("AirPods report their latest Bluetooth battery values. Other headphones, including supported Sony models, report battery while connected.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
