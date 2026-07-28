@@ -163,6 +163,9 @@ final class AppSwitcherController {
     }
 
     private func activateAndOpenWindow(for application: NSRunningApplication) {
+        if application.isHidden {
+            moveFrontmostWindowToCurrentSpace(processID: application.processIdentifier)
+        }
         application.unhide()
         guard let bundleURL = application.bundleURL, bundleURL.pathExtension == "app" else {
             application.activate(options: [.activateAllWindows])
@@ -232,6 +235,26 @@ final class AppSwitcherController {
     private func hasWindowOnAnySpace(processID: pid_t) -> Bool {
         let windowInfo = CGWindowListCopyWindowInfo([.optionAll, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]] ?? []
         return windowInfo.contains { isRegularWindow($0, ownedBy: processID) }
+    }
+
+    private func moveFrontmostWindowToCurrentSpace(processID: pid_t) {
+        typealias MainConnectionID = @convention(c) () -> UInt32
+        typealias GetActiveSpace = @convention(c) (UInt32) -> UInt64
+        typealias MoveWindows = @convention(c) (UInt32, CFArray, UInt64) -> Void
+
+        let windowInfo = CGWindowListCopyWindowInfo([.optionAll, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]] ?? []
+        guard let windowID = windowInfo.first(where: { isRegularWindow($0, ownedBy: processID) })?[kCGWindowNumber as String] as? NSNumber,
+              let skyLight = dlopen("/System/Library/PrivateFrameworks/SkyLight.framework/SkyLight", RTLD_LAZY) else { return }
+        defer { dlclose(skyLight) }
+        guard let mainConnectionSymbol = dlsym(skyLight, "SLSMainConnectionID"),
+              let activeSpaceSymbol = dlsym(skyLight, "SLSGetActiveSpace"),
+              let moveWindowsSymbol = dlsym(skyLight, "SLSMoveWindowsToManagedSpace") else { return }
+
+        let mainConnectionID = unsafeBitCast(mainConnectionSymbol, to: MainConnectionID.self)
+        let getActiveSpace = unsafeBitCast(activeSpaceSymbol, to: GetActiveSpace.self)
+        let moveWindows = unsafeBitCast(moveWindowsSymbol, to: MoveWindows.self)
+        let connectionID = mainConnectionID()
+        moveWindows(connectionID, [windowID] as CFArray, getActiveSpace(connectionID))
     }
 
     private func isRegularWindow(_ info: [String: Any], ownedBy processID: pid_t) -> Bool {
